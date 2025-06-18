@@ -20,17 +20,25 @@ document.addEventListener("DOMContentLoaded", () => {
 
         const spotsLeft = details.max_participants - details.participants.length;
 
-        // Adiciona a lista de participantes inscritos
+        // Adiciona a lista de participantes inscritos com estilo
         let participantsHTML = "";
         if (details.participants.length > 0) {
           participantsHTML = `
-            <p><strong>Participants:</strong></p>
-            <ul>
-              ${details.participants.map(email => `<li>${email}</li>`).join("")}
-            </ul>
+            <div class="participants-list">
+              ${details.participants
+                .map(
+                  email => `
+                    <span class="participant-avatar" title="${email}">
+                      ${email[0].toUpperCase()}
+                    </span>
+                  `
+                )
+                .join("")}
+            </div>
+            <p class="participants-count">${details.participants.length} participant${details.participants.length > 1 ? "s" : ""}</p>
           `;
         } else {
-          participantsHTML = `<p><strong>Participants:</strong> None yet</p>`;
+          participantsHTML = `<p class="participants-none">No participants yet</p>`;
         }
 
         activityCard.innerHTML = `
